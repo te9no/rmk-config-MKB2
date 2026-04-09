@@ -31,6 +31,9 @@ modules=(
 
 mkdir -p "${DIST_DIR}"
 
+# Copy default config to keyboard.toml for initial build
+cp "${ROOT_DIR}/config/default.toml" "${ROOT_DIR}/keyboard.toml"
+
 # Build default first to generate keyboard.toml
 echo "Building default firmware..."
 MODULE="default" cargo build --release
