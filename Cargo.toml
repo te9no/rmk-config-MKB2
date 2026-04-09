@@ -1,0 +1,47 @@
+[package]
+name = "rmk-mkb"
+version = "0.1.0"
+edition = "2024"
+authors = ["te9no"]
+
+[dependencies]
+rmk = { git = "https://github.com/HaoboGu/rmk", branch = "main", default-features = false, features = ["async_matrix", "col2row", "defmt", "storage", "split", "nrf52840_ble"] }
+rmk-macro = { git = "https://github.com/HaoboGu/rmk", branch = "main" }
+embassy-time = { version = "0.5", features = ["tick-hz-32_768", "defmt"] }
+embassy-executor = { version = "0.10", features = ["defmt", "platform-cortex-m", "executor-thread"] }
+embassy-nrf = { version = "0.10", features = ["defmt", "nrf52840", "time-driver-rtc1", "gpiote", "unstable-pac", "nfc-pins-as-gpio", "time"] }
+nrf-sdc = { git = "https://github.com/haobogu/nrf-sdc", rev = "ffe59a7aefaaa145a3d2474602f33387f80dcefa", features = ["defmt", "peripheral", "central", "nrf52840"] }
+nrf-mpsl = { git = "https://github.com/haobogu/nrf-sdc", rev = "ffe59a7aefaaa145a3d2474602f33387f80dcefa", features = ["defmt", "critical-section-impl", "nrf52840"] }
+cortex-m = "0.7.7"
+cortex-m-rt = "0.7.5"
+defmt = "1.0"
+defmt-rtt = "1.0"
+panic-probe = { version = "1.0", features = ["print-defmt"] }
+static_cell = "2"
+rand_core = { version = "0.6" }
+rand_chacha = { version = "0.3", default-features = false }
+bt-hci = { version = "0.8", features = ["defmt"] }
+
+# モジュール用依存クレート（オプショナル指定）
+ssd1306 = { version = "0.9.0", optional = true }
+embedded-graphics = { version = "0.8.1", optional = true }
+heapless = { version = "0.8.0", optional = true }
+
+[features]
+default = []
+module_oled = ["dep:ssd1306", "dep:embedded-graphics", "dep:heapless"]
+module_tlx493d = []
+
+[profile.release]
+codegen-units = 1
+debug = 2
+debug-assertions = false
+incremental = false
+lto = false
+opt-level = 's'
+overflow-checks = false
+panic = "abort"
+
+[profile.dev]
+incremental = false
+panic = "abort"

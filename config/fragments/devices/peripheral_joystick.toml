@@ -1,0 +1,9 @@
+[split.peripheral.input_device]
+[[split.peripheral.input_device.joystick]]
+name = "analog_stick_right"
+pin_x = "P0_31"
+pin_y = "P0_29"
+pin_z = "_"
+transform = [[80, 0], [0, 80]]
+bias = [29130, 29365]
+resolution = 6

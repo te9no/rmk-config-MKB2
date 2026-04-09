@@ -1,0 +1,9 @@
+[[input_device.encoder]]
+pin_a = "P0_11"
+pin_b = "P0_12"
+phase = "default"
+
+[[input_device.encoder]]
+pin_a = "P0_13"
+pin_b = "P0_14"
+phase = "default"

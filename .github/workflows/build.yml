@@ -1,0 +1,55 @@
+name: Build RMK Firmware
+
+on:
+  push:
+    branches: [ "master", "main", "Dev" ]
+  pull_request:
+    branches: [ "main", "Dev" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Rust
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        targets: thumbv7em-none-eabihf
+        
+    - name: Install Build Tools
+      run: |
+        cargo install flip-link cargo-binutils
+        rustup component add llvm-tools-preview
+        
+    - name: Build Central
+      run: |
+        cargo build --release --bin central
+        cargo objcopy --release --bin central -- -O ihex central.hex
+        
+    - name: Build Peripheral
+      run: |
+        cargo build --release --bin peripheral
+        cargo objcopy --release --bin peripheral -- -O ihex peripheral.hex
+        
+    - name: Convert to UF2
+      run: |
+        wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2conv.py
+        wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2families.json
+        python3 uf2conv.py central.hex -c -f 0xada52840 -o central.uf2
+        python3 uf2conv.py peripheral.hex -c -f 0xada52840 -o peripheral.uf2
+
+    - name: Build Artifact Name
+      id: artifact
+      run: |
+        safe_ref="${GITHUB_REF_NAME//\//-}"
+        echo "name=rmk-config-moNa2-${safe_ref}-${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ steps.artifact.outputs.name }}
+        path: |
+          *.hex
+          *.uf2 

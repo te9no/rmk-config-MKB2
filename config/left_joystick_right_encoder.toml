@@ -1,0 +1,5 @@
+# include: fragments/base_module.toml
+# include: fragments/aliases.toml
+# include: fragments/devices/encoders.toml
+# include: fragments/devices/central_joystick.toml
+# include: fragments/layers/module_stack.toml

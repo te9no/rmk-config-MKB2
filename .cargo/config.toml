@@ -1,0 +1,14 @@
+[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+linker = "flip-link"
+runner = "probe-rs run --chip nRF52840_xxAA"
+rustflags = []
+
+[build]
+target = "thumbv7em-none-eabihf"
+
+[env]
+DEFMT_LOG = "trace"
+KEYBOARD_TOML_PATH = { value = "keyboard.toml", relative = true }
+LIBCLANG_PATH = { value = "../.local-apt/libclang18/extract/usr/lib/llvm-18/lib", relative = true }
+LD_LIBRARY_PATH = { value = "../.local-apt/libclang18/extract/usr/lib/llvm-18/lib:../.local-apt/libclang18/extract/usr/lib/x86_64-linux-gnu", relative = true }
+VIAL_JSON_PATH = { value = "vial.json", relative = true }

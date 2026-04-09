@@ -1,0 +1,10 @@
+[split.peripheral.input_device]
+[[split.peripheral.input_device.pmw3610]]
+name = "trackball_right"
+spi.instance = "bitbang0"
+spi.sck = "P1_13"
+spi.mosi = "P0_04"
+spi.miso = "P0_04"
+spi.cs = "P1_12"
+motion = "P0_05"
+report_hz = 125

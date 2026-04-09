@@ -1,0 +1,72 @@
+[[layer]]
+name = "DEF"
+keys = """
+Tab Q W E R T Y U I O P Backspace
+@BT Escape A S D F G H J K L Semicolon @Mouse
+LShift Z X C V B N M Comma Dot Up Slash
+LCtrl LGui LAlt @Num Space @Func Space @Func Space @Num Left Down Right
+Left Up Space Down Right Home PageUp Enter PageDown End
+"""
+encoders = [["AudioVolUp", "AudioVolDown"], ["PageUp", "PageDown"]]
+
+[[layer]]
+name = "FUNC"
+keys = """
+Grave PageUp Up PageDown Home _ F1 F2 F3 F4 F5 _
+LShift Left Down Right End _ F6 F7 F8 F9 F10 _
+_ Backspace Delete _ _ _ F11 F12 _ _ _ _
+_ _ LAlt Enter Enter Enter Enter Enter _ _ _ _
+Left Up Space Down Right Home PageUp Enter PageDown End
+"""
+encoders = [["AudioVolUp", "AudioVolDown"], ["PageUp", "PageDown"]]
+
+[[layer]]
+name = "NUM"
+keys = """
+CapsLock @N1 @N2 @N3 @N4 @N5 @N6 @N7 @N8 @N9 @N0 _
+_ _ _ _ _ _ Minus Equal @LBracket @RBracket Backslash _
+LShift Space Delete _ _ _ _ Slash Semicolon Quote _
+_ Enter Enter _ Enter Enter Enter Enter Enter _ _ _
+Left Up Space Down Right Home PageUp Enter PageDown End
+"""
+encoders = [["AudioVolUp", "AudioVolDown"], ["PageUp", "PageDown"]]
+
+[[layer]]
+name = "MOUSE"
+keys = """
+_ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ MouseBtn1 MouseBtn3 MouseBtn2 _ _
+_ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _
+Left Up Space Down Right Home PageUp Enter PageDown End
+"""
+encoders = [["AudioVolUp", "AudioVolDown"], ["PageUp", "PageDown"]]
+
+[[layer]]
+name = "SCROLL"
+keys = """
+_ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ MouseBtn1 MouseBtn3 MouseBtn2 _ _
+_ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _
+Left Up Space Down Right Home PageUp Enter PageDown End
+"""
+encoders = [["AudioVolUp", "AudioVolDown"], ["PageUp", "PageDown"]]
+
+[[layer]]
+name = "BT"
+keys = """
+@BT_Clr @BT_Sel0 @BT_Sel1 @BT_Sel2 @BT_Sel3 @BT_Sel4 @BT_ClrAll _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _
+"""
+encoders = [["AudioVolUp", "AudioVolDown"], ["PageUp", "PageDown"]]
+
+[behavior.morse]
+enable_flow_tap = true
+prior_idle_time = "120ms"
+hold_on_other_press = true
+hold_timeout = "250ms"
+gap_timeout = "250ms"
