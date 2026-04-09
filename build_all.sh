@@ -8,9 +8,16 @@ TARGET_DIR="${ROOT_DIR}/target/thumbv7em-none-eabihf/release"
 DIST_DIR="${ROOT_DIR}/dist"
 
 if [[ ! -e "${LIBCLANG_ROOT}/libclang.so.1" ]]; then
-  echo "libclang not found at ${LIBCLANG_ROOT}"
-  echo "Run a single build first to populate the local libclang bundle."
-  exit 1
+  if [[ -n "${CI:-}" ]]; then
+    # In CI, use system libclang
+    export LIBCLANG_PATH="/usr/lib/llvm-18/lib"
+  else
+    echo "libclang not found at ${LIBCLANG_ROOT}"
+    echo "Run a single build first to populate the local libclang bundle."
+    exit 1
+  fi
+else
+  export LIBCLANG_PATH="${LIBCLANG_ROOT}"
 fi
 
 modules=(
