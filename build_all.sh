@@ -37,13 +37,13 @@ cp "${ROOT_DIR}/config/default.toml" "${ROOT_DIR}/keyboard.toml"
 # Build default first to generate keyboard.toml
 echo "Building default firmware..."
 MODULE="default" cargo build --release
-install -m 755 "${TARGET_DIR}/rmk-mkb2" "${DIST_DIR}/default.elf"
+install -m 755 "${TARGET_DIR}/rmk-mkb" "${DIST_DIR}/default.elf"
 install -m 644 "${ROOT_DIR}/keyboard.toml" "${DIST_DIR}/default.toml"
 
 for module in "${modules[@]}"; do
   echo "Building ${module} firmware..."
   MODULE="${module}" cargo build --release
-  install -m 755 "${TARGET_DIR}/rmk-mkb2" "${DIST_DIR}/${module}.elf"
+  install -m 755 "${TARGET_DIR}/rmk-mkb" "${DIST_DIR}/${module}.elf"
   install -m 644 "${ROOT_DIR}/keyboard.toml" "${DIST_DIR}/${module}.toml"
 done
 
