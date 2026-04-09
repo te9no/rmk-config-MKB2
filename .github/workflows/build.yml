@@ -20,36 +20,36 @@ jobs:
         
     - name: Install Build Tools
       run: |
+        sudo apt-get update
+        sudo apt-get install -y libclang-dev clang
         cargo install flip-link cargo-binutils
         rustup component add llvm-tools-preview
         
-    - name: Build Central
+    - name: Build Firmware
       run: |
-        cargo build --release --bin central
-        cargo objcopy --release --bin central -- -O ihex central.hex
-        
-    - name: Build Peripheral
-      run: |
-        cargo build --release --bin peripheral
-        cargo objcopy --release --bin peripheral -- -O ihex peripheral.hex
+        chmod +x build_all.sh
+        ./build_all.sh
         
     - name: Convert to UF2
       run: |
         wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2conv.py
         wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2families.json
-        python3 uf2conv.py central.hex -c -f 0xada52840 -o central.uf2
-        python3 uf2conv.py peripheral.hex -c -f 0xada52840 -o peripheral.uf2
+        for elf in dist/*.elf; do
+          base=$(basename "$elf" .elf)
+          cargo objcopy -- -I elf32-littlearm -O ihex "$elf" "$base.hex"
+          python3 uf2conv.py "$base.hex" -c -f 0xada52840 -o "$base.uf2"
+        done
 
     - name: Build Artifact Name
       id: artifact
       run: |
         safe_ref="${GITHUB_REF_NAME//\//-}"
-        echo "name=rmk-config-moNa2-${safe_ref}-${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+        echo "name=rmk-config-MKB2-${safe_ref}-${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: ${{ steps.artifact.outputs.name }}
         path: |
-          *.hex
-          *.uf2 
+          dist/*.hex
+          dist/*.uf2 
